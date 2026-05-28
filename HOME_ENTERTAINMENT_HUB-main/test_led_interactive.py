@@ -1,0 +1,127 @@
+"""
+Day 2: LED 実機テスト用 簡易診断ツール
+LED が実際に表示されているかどうかを確認するための逐次テスト
+"""
+import sys
+sys.path.insert(0, 'tools')
+from td_sat_sender import TdLedController
+import time
+
+print("=" * 80)
+print("📊 LED 実機テスト - 逐次診断")
+print("=" * 80)
+
+ctrl = TdLedController()
+
+# Test 1: OFF (初期化)
+print("\n【準備】OFF - 初期化")
+print("-" * 80)
+ctrl.send_scene('OFF', zone=1, node=1)
+time.sleep(1)
+print("✓ 送信完了 - 予期する動作: 完全消灯")
+print("  実機確認: LED が完全に消えているか?")
+input("  → 確認後 Enter を押してください")
+
+# Test 2: READY
+print("\n【Test 1】READY - OCEAN (低輝度)")
+print("-" * 80)
+print("予期する動作:")
+print("  - 背景: 青い波動アニメーション (OCEAN)")
+print("  - 輝度: 低め (120/255 = 47%)")
+print("  - テキスト: 'Welcome!' (白)")
+print("送信中...")
+ctrl.send_scene('READY', zone=1, node=1)
+time.sleep(0.5)
+ctrl.send_text_custom('Welcome!', zone=1, node=1)
+time.sleep(0.5)
+print("✓ 送信完了")
+print("  実機確認: OCEAN アニメーション + Welcome! テキストが表示されているか?")
+input("  → 確認後 Enter を押してください")
+
+# Test 3: EVENT_1
+print("\n【Test 2】EVENT_1 - OCEAN (中輝度) + カウントダウン")
+print("-" * 80)
+print("予期する動作:")
+print("  - 背景: OCEAN (輝度アップ) (180/255 = 71%)")
+print("  - テキスト: '開始まで 3:00'")
+print("送信中...")
+ctrl.send_scene('EVENT_1', zone=1, node=1)
+time.sleep(0.5)
+ctrl.send_text_custom('開始まで 3:00', zone=1, node=1)
+time.sleep(0.5)
+print("✓ 送信完了")
+print("  実機確認: OCEAN が明るくなったか? カウントダウンテキストが表示されているか?")
+input("  → 確認後 Enter を押してください")
+
+# Test 4: EVENT_2
+print("\n【Test 3】EVENT_2 - FIRE (全灯)")
+print("-" * 80)
+print("予期する動作:")
+print("  - 背景: 赤い炎アニメーション (FIRE)")
+print("  - 輝度: 全灯 (255/255 = 100%)")
+print("  - テキスト: 'Song Lyrics' (歌詞表示)")
+print("送信中...")
+ctrl.send_scene('EVENT_2', zone=1, node=1)
+time.sleep(0.5)
+ctrl.send_lyrics_line('Song Lyrics!', zone=1, node=1)
+time.sleep(0.5)
+print("✓ 送信完了")
+print("  実機確認: FIRE アニメーションが表示されているか? 全灯しているか?")
+input("  → 確認後 Enter を押してください")
+
+# Test 5: EVENT_3
+print("\n【Test 4】EVENT_3 - STARFIELD (中輝度)")
+print("-" * 80)
+print("予期する動作:")
+print("  - 背景: 星瞬きアニメーション (STARFIELD)")
+print("  - 輝度: 中程度 (200/255 = 78%)")
+print("  - テキスト: 'Thank you!'")
+print("送信中...")
+ctrl.send_scene('EVENT_3', zone=1, node=1)
+time.sleep(0.5)
+ctrl.send_text_custom('Thank you!', zone=1, node=1)
+time.sleep(0.5)
+print("✓ 送信完了")
+print("  実機確認: STARFIELD (星) が瞬いているか? Thank you! が表示されているか?")
+input("  → 確認後 Enter を押してください")
+
+# Test 6: FIREWORKS
+print("\n【Test 5】FIREWORKS - 花火エフェクト")
+print("-" * 80)
+print("予期する動作:")
+print("  - エフェクト: ホワイトの花火 (3×3～5×5 円状)")
+print("  - 数: 10～20 発")
+print("  - 輝度: 全灯 (255/255 = 100%)")
+print("送信中...")
+ctrl.send_scene('FIREWORKS', zone=1, node=1)
+time.sleep(0.5)
+print("✓ 送信完了")
+print("  実機確認: 花火が表示されているか?")
+print("  形状: ランダムに配置された円状のホワイト LED")
+input("  → 確認後 Enter を押してください")
+
+# Test 7: OFF (終了)
+print("\n【終了】OFF - 完全消灯")
+print("-" * 80)
+print("送信中...")
+ctrl.send_scene('OFF', zone=1, node=1)
+time.sleep(0.5)
+print("✓ 送信完了")
+print("  実機確認: 完全に消灯したか?")
+input("  → 確認後 Enter を押してください")
+
+ctrl.close()
+
+print("\n" + "=" * 80)
+print("✅ 逐次テスト完了")
+print("=" * 80)
+
+print("\n【診断結果の確認ポイント】")
+print("  1. すべてのシーンで LED が明るさを変えているか?")
+print("  2. テキストが表示されているか?")
+print("  3. 色が正しいか? (OCEAN=青, FIRE=赤, STARFIELD=色々, FIREWORKS=白)")
+print("  4. アニメーションが動いているか?")
+print("\n問題が見つかった場合:")
+print("  - docs/planning/day2_led_test_plan.md を参照して診断を続ける")
+print("  - シリアルモニターで [CTRL] ... ログを確認")
+print("  - gSafeMode が false に設定されているか確認")

@@ -1,0 +1,49 @@
+{
+  "matrix_definition": {
+    "version": "1.0",
+    "description": "HOME_ENTERTAINMENT_HUB Standard Matrix",
+    "global_dimensions": {
+      "width": 88,
+      "height": 10,
+      "total_leds": 880
+    },
+    "data_lines": [
+      {
+        "line_id": "DATA0",
+        "description": "Upper half of the matrix",
+        "led_count": 440,
+        "global_index_range": {"start": 0, "end": 439},
+        "physical_block": {
+          "start_x": 0,
+          "start_y": 0,
+          "width": 88,
+          "height": 5
+        },
+        "wiring_layout": {
+          "pattern": "serpentine",
+          "start_corner": "top-left",
+          "first_direction": "right",
+          "axis": "horizontal"
+        }
+      },
+      {
+        "line_id": "DATA1",
+        "description": "Lower half of the matrix",
+        "led_count": 440,
+        "global_index_range": {"start": 440, "end": 879},
+        "physical_block": {
+          "start_x": 0,
+          "start_y": 5,
+          "width": 88,
+          "height": 5
+        },
+        "wiring_layout": {
+          "pattern": "serpentine",
+          "start_corner": "top-left",
+          "first_direction": "right",
+          "axis": "horizontal"
+        }
+      }
+    ]
+  }
+}

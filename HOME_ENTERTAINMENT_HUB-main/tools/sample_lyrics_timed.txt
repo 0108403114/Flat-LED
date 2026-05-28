@@ -1,0 +1,9 @@
+# timestamped lyrics sample
+# format A: [mm:ss.xx] text
+# format B: seconds|text
+
+[00:00.00] WELCOME TO LIVE
+[00:03.00] THIS IS HOME HUB
+[00:06.50] LIGHTS IN SYNC
+[00:10.00] FEEL THE MOMENT
+[00:13.50] THANK YOU

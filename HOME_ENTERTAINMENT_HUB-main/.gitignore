@@ -1,0 +1,23 @@
+.vscode/
+.venv/
+.esp-idf/
+.pio/
+**/.pio/
+build/
+sdkconfig
+sdkconfig.old
+**/build/
+__pycache__/
+*.pyc
+*.log
+
+# 別管理リポジトリ（本リポジトリには含めない）
+20260510_DEMO_LED_NODE/
+
+# 音源ファイルのみ除外（フォルダ自体はGit管理）
+touchdesigner-mcp-td/media/music/*
+!touchdesigner-mcp-td/media/music/.gitkeep
+
+# TouchDesigner のローカル作業バックアップ
+touchdesigner-mcp-td/Backup/*.toe
+touchdesigner-mcp-td/my_project.*.toe
